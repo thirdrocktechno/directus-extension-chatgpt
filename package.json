@@ -1,0 +1,88 @@
+{
+  "name": "directus-extension-directusgpt",
+  "version": "1.0.0",
+  "dependencies": {
+    "@directus/sdk": "^10.3.3",
+    "@pinecone-database/pinecone": "^0.0.10",
+    "ably": "^1.2.39",
+    "gpt3-tokenizer": "^1.1.5",
+    "langchain": "^0.0.51",
+    "nanoid": "^3.3.4",
+    "openai": "^3.2.1"
+  },
+  "directus:extension": {
+    "host": "^9.25.2",
+    "type": "bundle",
+    "path": {
+      "app": "dist/app.js",
+      "api": "dist/api.js"
+    },
+    "entries": [
+      {
+        "type": "endpoint",
+        "name": "directus-gpt",
+        "source": "src/directus-gpt-apis/index.js"
+      },
+      {
+        "type": "module",
+        "name": "gpt-module",
+        "source": "src/directus-gpt-module/index.js"
+      },
+      {
+        "type": "hook",
+        "name": "gpthook",
+        "source": "src/directus-gpt-hook/index.js"
+      }
+    ]
+  },
+  "description": "A DirectusGPT plugin for integrating AI-powered custom ChatBot with your Directus content.",
+  "author": {
+    "name": "Third Rock Techkno LLP",
+    "email": "krunals@thirdrocktechkno.com",
+    "url": "https://www.thirdrocktechkno.com"
+  },
+  "maintainers": [
+    {
+      "name": "Third Rock Techkno LLP",
+      "email": "krunals@thirdrocktechkno.com",
+      "url": "https://www.thirdrocktechkno.com"
+    }
+  ],
+  "icon": "extension",
+  "keywords": [
+    "directus",
+    "directus-extension",
+    "directus-custom-bundle",
+    "dircetusgpt",
+    "directusgpt-chatbot",
+    "chatbot",
+    "ai",
+    "ml",
+    "conversations",
+    "openai",
+    "chatgpt",
+    "open-source",
+    "bot",
+    "custom-chatbot",
+    "gpt-3",
+    "search-chatbot-gpt",
+    "directus content chatgpt",
+    "ai chatbot directus",
+    "langchain"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build": "directus-extension build && cp -r ./dist ../extensions/directus-extension-gpt-bundle && cp package.json ../extensions/directus-extension-gpt-bundle",
+    "dev": "directus-extension build -w --no-minify",
+    "link": "directus-extension link",
+    "add": "directus-extension add"
+  },
+  "devDependencies": {
+    "@directus/extensions-sdk": "9.25.2",
+    "@rollup/plugin-image": "^3.0.2",
+    "@rollup/plugin-wasm": "^6.1.2",
+    "rollup-plugin-svg": "^2.0.0",
+    "vue": "^3.2.47"
+  },
+  "type": "commonjs"
+}
