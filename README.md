@@ -10,8 +10,6 @@
 
 [LangChain](https://js.langchain.com/) is a framework for developing applications powered by language models. It allows developers to connect a language model to other sources of data and allow a language model to interact with other systems. This plugin uses LangChain for a conversation like search in the ChatBot.
 
-Checkout AI ChatBot demo at [Foodadvisor Demo With DirectusGPT ChatBot](https://foodadvisor.strapigpt.com/). Click on the button right chat icon and ask about the restaurants in the ChatBot. The demo is based on the [Foodadvisor - Directus Demo](https://github.com/strapi/foodadvisor).
-
 ## Overview: Integrate a custom ChatBot in your frontend using DirectusGPT.
 
 With this plugin, you can integrate a custom ChatBot in your frontend by just copy & pasting a script in your frontend. The ChatBot will answer according to your content of directus in your frontend.
@@ -32,49 +30,51 @@ Thats it! You can now use ChatBot in your frontend to ask your queries.
 
 1. **Easy to use**: The plugin is easy to use and can be set up within 10 minutes.
 1. **Customizable**: You can customize the ChatBot UI according to your needs.
-1. **Open Source**: The plugin is open source and can be found on [GitHub](https://github.com/thirdrocktechno/directus-plugin-chatgpt)
+1. **Open Source**: The plugin is open source and can be found on [GitHub](https://github.com/thirdrocktechno/directus-extension-chatgpt)
 
 ## 🖐 Requirements
 
 1. [Node.js](https://nodejs.org/en/) version 18 or higher.
-1. [Directus](https://directus.io/) version v9.x or higher.
+1. [Directus](https://directus.io/) version v9.25 or higher.
 
-> The plugin is designed for **Directus v9.x**.
+> The plugin is designed for **Directus v9.25**.
 
 ## ⏳ Installation
 
 ### 1. Install the plugin
 
-<!-- use npm for installing plugin -->
+**The package is published to npm:**
 
 ```bash
-npm install @thirdrocktechno/directus-gpt
+npm install @thirdrocktechno/directus-extension-gpt-bundle
 ```
 
-### 2. Enable the plugin
+**Manual Installation**
 
-<!-- enable the plugin in the admin panel -->
+- Download or fork the repository
+- Install the requirements
+  ```bash
+  npm install
+  ```
+- Build the extension
+  ```bash
+  npm run build
+  ```
+- Move the package.json and dist folder to your extension folder
+  ```bash
+  mv ./ extensions/directus-extension-ai-gpt-bundle
+  ```
+- Restart your Directus instance
 
-Goto `<strapi app root>/config/plugins.js` Add the following code snippet.
+### 2. Build and start the Admin UI
 
-```js
-module.exports = ({ env }) => ({
-  // ...
-  "strapi-gpt": {
-    enabled: true,
-  },
-});
-```
-
-### 3. Build and start the Admin UI
-
-Afterwards, you would need to build a fresh package that includes the StrapiGPT plugin. For it, please execute the commands below:
+Afterwards, you would need to build a fresh package that includes the DirectusGPT plugin. For it, please execute the commands below:
 
 <!-- build the admin UI -->
 
 ```bash
 npm run build
-npm run develop
+npm run start
 ```
 
 The DirectusGPT plugin should appear in the Plugins section of the Directus sidebar after you run the app again.

@@ -62,8 +62,14 @@ export default {
               accountability: req.accountability,
             });
 
-            const collectionData = await collectionService.readByQuery({});
+            const fields = collectionSettings[collection]["fields"]
+              ? collectionSettings[collection]["fields"].map((f) => f.field)
+              : ["*"];
 
+            const collectionData = await collectionService.readByQuery({
+              fields: fields,
+            });
+            console.log(collectionData);
             const data = [];
             for (const dataOfCol of collectionData) {
               const text = getTextFromPredefinedTemplate(dataOfCol);
@@ -97,6 +103,7 @@ export default {
       }
     });
 
+    // api to query chat gpt and store in database
     router.post("/query", async (req, res, next) => {
       try {
         const { query, user_id } = req.body;
@@ -208,6 +215,7 @@ export default {
       }
     });
 
+    // api to fetch user's last 25 conversations
     router.post("/history", async (req, res, next) => {
       try {
         const { user_id } = req.body;
@@ -215,10 +223,14 @@ export default {
         const gptUserConversationService = new ItemsService(gptUserConversationCollectionName, { schema: req.schema });
 
         // Retrieve the conversation log and save the user's prompt
-        const conversations = await gptUserConversationService.readByQuery({
+        let conversations = await gptUserConversationService.readByQuery({
           filter: { user_id: { _eq: user_id } },
           limit: 25,
           sort: ["-created_at"],
+        });
+
+        conversations = conversations.sort(function (a, b) {
+          return new Date(a.created_at) - new Date(b.created_at);
         });
 
         return res.json({
@@ -231,13 +243,21 @@ export default {
       }
     });
 
+    // add response of AI in database
     router.post("/add-conversation", async (req, res, next) => {
       try {
         const { entry, speaker, user_id } = req.body;
 
         const gptUserConversationService = new ItemsService(gptUserConversationCollectionName, { schema: req.schema });
 
-        await gptUserConversationService.createOne({ entry: entry, speaker: speaker, user_id: user_id });
+        const findInHistory = await gptUserConversationService.readByQuery({
+          filter: { user_id: { _eq: user_id }, entry: { _eq: entry }, speaker: { _eq: speaker } },
+          limit: 1,
+        });
+
+        if (!findInHistory || findInHistory.length === 0) {
+          await gptUserConversationService.createOne({ entry: entry, speaker: speaker, user_id: user_id });
+        }
 
         return res.json({
           message: "Conversation added successfully",
@@ -248,6 +268,7 @@ export default {
       }
     });
 
+    // get widgets settings for cdn
     router.get("/widget-settings", async (req, res, next) => {
       try {
         const gptSettingsService = new ItemsService(gptSettingsCollectionName, { schema: req.schema });
