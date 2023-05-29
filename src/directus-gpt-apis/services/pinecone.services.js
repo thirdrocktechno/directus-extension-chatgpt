@@ -30,8 +30,14 @@ export default class PineconeService {
       });
 
       const getGptSettings = await gptSettingsService.readByQuery({});
-      // initialize Pinecone client with fetched settings
 
+      if (!getGptSettings || !getGptSettings.length) {
+        console.log("GPT settings not found !!!!!");
+        console.log("Please update GPT settings from admin panel");
+        return false;
+      }
+
+      // initialize Pinecone client with fetched settings
       await this.pineconeClient.init({
         apiKey: getGptSettings[0]["Pinecone_API_Key"],
         environment: getGptSettings[0]["Pinecone_Environment"],

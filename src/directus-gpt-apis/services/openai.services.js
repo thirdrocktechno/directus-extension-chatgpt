@@ -11,6 +11,7 @@ export default class OpenAIService {
     this.openai = null;
     this.schema = schema;
 
+    // fetch OpenAI API keys and initialize client
     this.initialize().then((result) => {});
   }
 
@@ -24,6 +25,12 @@ export default class OpenAIService {
       });
 
       const getGptSettings = await gptSettingsService.readByQuery({});
+
+      if (!getGptSettings || !getGptSettings.length) {
+        console.log("GPT settings not found !!!!!");
+        console.log("Please update GPT settings from admin panel");
+        return false;
+      }
 
       this.configuration = new Configuration({
         apiKey: getGptSettings[0]["OpenAI_API_Key"],

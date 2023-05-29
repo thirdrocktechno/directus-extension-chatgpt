@@ -714,7 +714,7 @@ export default {
       // widget-content
       chatWidgetSettings: {
         colors: { ...DEFAULT_COLOR_OPTIONS },
-        widgetIconAlignment: DEFAULT_WIDGET_POSITION,
+        widgetIconAlignment: DEFAULT_WIDGET_POSITION.value,
         chat_initiation: true,
         header_content: "DirectusGPT Bot",
         support_message: "DirectusGPT Bot",
@@ -907,13 +907,6 @@ export default {
         ? { ...this.chatWidgetSettings, ...JSON.parse(gptSettings.chat_widget_settings) }
         : { ...this.chatWidgetSettings };
 
-      if (!this.support_executive_image) {
-        this.support_executive_image = SupportExecutiveImage;
-      }
-      if (!this.company_logo) {
-        this.company_logo = CompanyLogo;
-      }
-
       this.collectionSettings = gptSettings.collection_settings ? JSON.parse(gptSettings.collection_settings) : {};
 
       this.openAiApiKey = gptSettings["OpenAI_API_Key"];
@@ -926,6 +919,13 @@ export default {
       this.backendHost = gptSettings["Backend_Host"];
       this.support_executive_image = gptSettings["support_executive_image"];
       this.company_logo = gptSettings["company_logo"];
+
+      if (!this.support_executive_image) {
+        this.support_executive_image = SupportExecutiveImage;
+      }
+      if (!this.company_logo) {
+        this.company_logo = CompanyLogo;
+      }
 
       for (const coll of storedCollections.data.data) {
         if (

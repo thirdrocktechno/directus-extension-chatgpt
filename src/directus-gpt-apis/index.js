@@ -6,7 +6,16 @@ import { customAlphabet } from "nanoid";
 
 import { templates } from "./utils/templates";
 import { summarizeLongDocument } from "./utils/summarizer";
-import { gptSettingsCollectionName, gptUserConversationCollectionName } from "../lib/constants";
+import {
+  gptUserConversationFields,
+  gptUserConversationCollectionName,
+  gptUserConversationsPermissions,
+  gptUserConversationCollectionObj,
+  gptSettingsCollectionObj,
+  gptSettingsCollectionName,
+  gptSettingsPermissions,
+  gptSettingsFields,
+} from "../lib/constants";
 import PineconeService from "./services/pinecone.services";
 import UpsertService from "./services/upsert.services";
 
@@ -18,15 +27,68 @@ const nanoid = customAlphabet("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklm
 
 export default {
   id: "directus-gpt",
-  handler: async (router, { services, exceptions, getSchema }) => {
-    const { ItemsService } = services;
+  handler: async (router, { services, exceptions, getSchema, database }) => {
+    const { FieldsService, CollectionsService, PermissionsService, ItemsService } = services;
+
+    let pineconeService;
+    let upsertService;
+
+    await (async () => {
+      let schema = await getSchema();
+      let service = new FieldsService({ knex: database, schema });
+
+      const collectionService = new CollectionsService({ knex: database, schema });
+
+      const conversationCollection = await collectionService
+        .readOne(gptUserConversationCollectionName)
+        .catch(() => false);
+
+      if (!conversationCollection) {
+        await collectionService.createOne(gptUserConversationCollectionObj);
+
+        const permissionsService = new PermissionsService({ knex: database, schema });
+
+        await permissionsService.createMany(gptUserConversationsPermissions);
+
+        // re-instantiate schema and service due to new collection added
+        schema = await getSchema();
+        service = new FieldsService({ knex: database, schema });
+      }
+
+      const gptSettingsCollection = await collectionService.readOne(gptSettingsCollectionName).catch(() => false);
+
+      if (!gptSettingsCollection) {
+        await collectionService.createOne(gptSettingsCollectionObj);
+
+        const permissionsService = new PermissionsService({ knex: database, schema });
+
+        await permissionsService.createMany(gptSettingsPermissions);
+
+        // re-instantiate schema and service due to new collection added
+        schema = await getSchema();
+        service = new FieldsService({ knex: database, schema });
+      }
+
+      // Create fields in GPT settings collection if not exists
+      let ensureSettingsFieldsArr = [];
+      for (const gptSettingField of gptSettingsFields) {
+        ensureSettingsFieldsArr.push(ensureField(gptSettingField, service));
+      }
+      await Promise.all(ensureSettingsFieldsArr);
+
+      // Create fields in gpt-user conversations collection if not exists
+      let ensureConversationFieldsArr = [];
+      for (const gptUserConversationField of gptUserConversationFields) {
+        ensureConversationFieldsArr.push(ensureField(gptUserConversationField, service));
+      }
+      await Promise.all(ensureConversationFieldsArr);
+
+      pineconeService = new PineconeService(services, schema);
+
+      upsertService = new UpsertService(services, schema);
+    })();
+
     const { ServiceUnavailableException } = exceptions;
-
-    const directusSchema = await getSchema();
-
-    const pineconeService = new PineconeService(services, directusSchema);
-
-    const upsertService = new UpsertService(services, directusSchema);
 
     // api route to refresh data in pinecone for enabled collections
     router.post("/refresh-data", async (req, res, next) => {
@@ -303,3 +365,8 @@ export default {
     });
   },
 };
+
+async function ensureField(field, service) {
+  const found = await service.readOne(field.collection, field.field).catch(() => false);
+  if (!found) await service.createField(field.collection, field);
+}
