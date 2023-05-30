@@ -35,12 +35,7 @@
                   :class="['setting-button', 'redSettingsBtn', { greenSettingsBtn: col.isEnabled }]"
                   @click="openFieldsDialog(index)"
                 >
-                  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M6.17 18a3 3 0 015.66 0H22v2H11.83a3 3 0 01-5.66 0H2v-2h4.17zm6-7a3 3 0 015.66 0H22v2h-4.17a3 3 0 01-5.66 0H2v-2h10.17zm-6-7a3.001 3.001 0 015.66 0H22v2H11.83a3 3 0 01-5.66 0H2V4h4.17z"
-                      fill="#212134"
-                    ></path>
-                  </svg>
+                  <SettingIcon />
                   <span>Settings</span>
                 </div>
               </v-col>
@@ -83,19 +78,7 @@
           <ul class="setting-list-wrapper">
             <label class="setting-list-heading" for="openAiApiKey">OpenAI API Key</label>
             <div class="tooltip-wrapper">
-              <svg
-                width="1rem"
-                height="1rem"
-                viewBox="0 0 24 24"
-                fill="#8e8ea9"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-              >
-                <path
-                  d="M12 0C5.383 0 0 5.383 0 12s5.383 12 12 12 12-5.383 12-12S18.617 0 12 0Zm0 4.92a1.56 1.56 0 1 1 0 3.12 1.56 1.56 0 0 1 0-3.12Zm3.84 13.06a.5.5 0 0 1-.5.5h-6.2a.5.5 0 0 1-.5-.5v-.92a.5.5 0 0 1 .5-.5h2.14v-5.28H9.86a.5.5 0 0 1-.5-.5v-.92a.5.5 0 0 1 .5-.5h2.84a.5.5 0 0 1 .5.5v6.7h2.14a.5.5 0 0 1 .5.5v.92Z"
-                  fill="#212134"
-                ></path>
-              </svg>
+              <TooltipIcon />
               <span class="tooltip-text">This plugin will require OpenAI API key to work.</span>
             </div>
             <div class="setting-list-input-field">
@@ -106,41 +89,12 @@
                 @click="switchVisibility('showOpenAiApiKey')"
                 style="background: none; border: none; cursor: pointer"
               >
-                <template v-if="showOpenAiApiKey">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="1rem"
-                    height="1rem"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    aria-hidden="true"
-                    focusable="false"
-                  >
-                    <path d="M15.2 12a3.2 3.2 0 1 1-6.399 0 3.2 3.2 0 0 1 6.4 0Z" fill="#212134"></path>
-                    <path
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
-                      d="M18.78 6.103c1.923 1.243 3.64 2.981 4.963 5.027a1.61 1.61 0 0 1 .005 1.738c-1.318 2.063-3.031 3.807-4.954 5.046-2.12 1.364-4.475 2.086-6.81 2.086-2.388 0-4.683-.7-6.816-2.082-1.894-1.225-3.593-2.966-4.914-5.032a1.596 1.596 0 0 1 .032-1.777C1.89 8.811 3.734 7.027 5.77 5.805 7.767 4.608 9.858 4 11.984 4c2.317 0 4.667.728 6.795 2.103Zm-9.446 9.888a4.8 4.8 0 1 0 5.334-7.982 4.8 4.8 0 0 0-5.334 7.982Z"
-                      fill="#212134"
-                    ></path>
-                  </svg>
-                </template>
-                <template v-else>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="1rem"
-                    height="1rem"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    aria-hidden="true"
-                    focusable="false"
-                  >
-                    <path
-                      d="M4.048 6.875 2.103 4.93a1 1 0 1 1 1.414-1.415l16.966 16.966a1 1 0 1 1-1.414 1.415l-2.686-2.686a12.247 12.247 0 0 1-4.383.788c-3.573 0-6.559-1.425-8.962-3.783a15.842 15.842 0 0 1-2.116-2.568 11.096 11.096 0 0 1-.711-1.211 1.145 1.145 0 0 1 0-.875c.124-.258.36-.68.711-1.211.58-.876 1.283-1.75 2.116-2.569.326-.32.663-.622 1.01-.906Zm10.539 10.539-1.551-1.551a4.005 4.005 0 0 1-4.9-4.9L6.584 9.411a6 6 0 0 0 8.002 8.002ZM7.617 4.787A12.248 12.248 0 0 1 12 3.998c3.572 0 6.559 1.426 8.961 3.783a15.845 15.845 0 0 1 2.117 2.569c.351.532.587.954.711 1.211.116.242.115.636 0 .875-.124.257-.36.68-.711 1.211-.58.876-1.283 1.75-2.117 2.568-.325.32-.662.623-1.01.907l-2.536-2.537a6 6 0 0 0-8.002-8.002L7.617 4.787Zm3.347 3.347A4.005 4.005 0 0 1 16 11.998c0 .359-.047.706-.136 1.037l-4.9-4.901Z"
-                      fill="#212134"
-                    ></path>
-                  </svg>
-                </template>
+                <div v-if="showOpenAiApiKey">
+                  <ShowIcon />
+                </div>
+                <div v-else>
+                  <HideIcon />
+                </div>
               </button>
             </div>
 
@@ -152,19 +106,7 @@
           <ul class="setting-list-wrapper">
             <label class="setting-list-heading" for="pineconeApiKey">Pinecone API Key</label>
             <div class="tooltip-wrapper">
-              <svg
-                width="1rem"
-                height="1rem"
-                viewBox="0 0 24 24"
-                fill="#8e8ea9"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-              >
-                <path
-                  d="M12 0C5.383 0 0 5.383 0 12s5.383 12 12 12 12-5.383 12-12S18.617 0 12 0Zm0 4.92a1.56 1.56 0 1 1 0 3.12 1.56 1.56 0 0 1 0-3.12Zm3.84 13.06a.5.5 0 0 1-.5.5h-6.2a.5.5 0 0 1-.5-.5v-.92a.5.5 0 0 1 .5-.5h2.14v-5.28H9.86a.5.5 0 0 1-.5-.5v-.92a.5.5 0 0 1 .5-.5h2.84a.5.5 0 0 1 .5.5v6.7h2.14a.5.5 0 0 1 .5.5v.92Z"
-                  fill="#212134"
-                ></path>
-              </svg>
+              <TooltipIcon />
               <span class="tooltip-text">This plugin will require Pinecone API key to work.</span>
             </div>
             <div class="setting-list-input-field">
@@ -174,41 +116,12 @@
                 @click="switchVisibility('showPineconeApiKey')"
                 style="background: none; border: none; cursor: pointer"
               >
-                <template v-if="showOpenAiApiKey">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="1rem"
-                    height="1rem"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    aria-hidden="true"
-                    focusable="false"
-                  >
-                    <path d="M15.2 12a3.2 3.2 0 1 1-6.399 0 3.2 3.2 0 0 1 6.4 0Z" fill="#212134"></path>
-                    <path
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
-                      d="M18.78 6.103c1.923 1.243 3.64 2.981 4.963 5.027a1.61 1.61 0 0 1 .005 1.738c-1.318 2.063-3.031 3.807-4.954 5.046-2.12 1.364-4.475 2.086-6.81 2.086-2.388 0-4.683-.7-6.816-2.082-1.894-1.225-3.593-2.966-4.914-5.032a1.596 1.596 0 0 1 .032-1.777C1.89 8.811 3.734 7.027 5.77 5.805 7.767 4.608 9.858 4 11.984 4c2.317 0 4.667.728 6.795 2.103Zm-9.446 9.888a4.8 4.8 0 1 0 5.334-7.982 4.8 4.8 0 0 0-5.334 7.982Z"
-                      fill="#212134"
-                    ></path>
-                  </svg>
-                </template>
-                <template v-else>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="1rem"
-                    height="1rem"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    aria-hidden="true"
-                    focusable="false"
-                  >
-                    <path
-                      d="M4.048 6.875 2.103 4.93a1 1 0 1 1 1.414-1.415l16.966 16.966a1 1 0 1 1-1.414 1.415l-2.686-2.686a12.247 12.247 0 0 1-4.383.788c-3.573 0-6.559-1.425-8.962-3.783a15.842 15.842 0 0 1-2.116-2.568 11.096 11.096 0 0 1-.711-1.211 1.145 1.145 0 0 1 0-.875c.124-.258.36-.68.711-1.211.58-.876 1.283-1.75 2.116-2.569.326-.32.663-.622 1.01-.906Zm10.539 10.539-1.551-1.551a4.005 4.005 0 0 1-4.9-4.9L6.584 9.411a6 6 0 0 0 8.002 8.002ZM7.617 4.787A12.248 12.248 0 0 1 12 3.998c3.572 0 6.559 1.426 8.961 3.783a15.845 15.845 0 0 1 2.117 2.569c.351.532.587.954.711 1.211.116.242.115.636 0 .875-.124.257-.36.68-.711 1.211-.58.876-1.283 1.75-2.117 2.568-.325.32-.662.623-1.01.907l-2.536-2.537a6 6 0 0 0-8.002-8.002L7.617 4.787Zm3.347 3.347A4.005 4.005 0 0 1 16 11.998c0 .359-.047.706-.136 1.037l-4.9-4.901Z"
-                      fill="#212134"
-                    ></path>
-                  </svg>
-                </template>
+                <div v-if="showPineconeApiKey">
+                  <ShowIcon />
+                </div>
+                <div v-else>
+                  <HideIcon />
+                </div>
               </button>
             </div>
 
@@ -220,19 +133,7 @@
           <ul class="setting-list-wrapper">
             <label class="setting-list-heading" for="pineconeIndexName">Pinecone Index Name</label>
             <div class="tooltip-wrapper">
-              <svg
-                width="1rem"
-                height="1rem"
-                viewBox="0 0 24 24"
-                fill="#8e8ea9"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-              >
-                <path
-                  d="M12 0C5.383 0 0 5.383 0 12s5.383 12 12 12 12-5.383 12-12S18.617 0 12 0Zm0 4.92a1.56 1.56 0 1 1 0 3.12 1.56 1.56 0 0 1 0-3.12Zm3.84 13.06a.5.5 0 0 1-.5.5h-6.2a.5.5 0 0 1-.5-.5v-.92a.5.5 0 0 1 .5-.5h2.14v-5.28H9.86a.5.5 0 0 1-.5-.5v-.92a.5.5 0 0 1 .5-.5h2.84a.5.5 0 0 1 .5.5v6.7h2.14a.5.5 0 0 1 .5.5v.92Z"
-                  fill="#212134"
-                ></path>
-              </svg>
+              <TooltipIcon />
               <span class="tooltip-text">This plugin will require Pinecone index key to work.</span>
             </div>
 
@@ -246,19 +147,7 @@
           <ul class="setting-list-wrapper">
             <label class="setting-list-heading" for="pineconeEnvironment">Pinecone Environment</label>
             <div class="tooltip-wrapper">
-              <svg
-                width="1rem"
-                height="1rem"
-                viewBox="0 0 24 24"
-                fill="#8e8ea9"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-              >
-                <path
-                  d="M12 0C5.383 0 0 5.383 0 12s5.383 12 12 12 12-5.383 12-12S18.617 0 12 0Zm0 4.92a1.56 1.56 0 1 1 0 3.12 1.56 1.56 0 0 1 0-3.12Zm3.84 13.06a.5.5 0 0 1-.5.5h-6.2a.5.5 0 0 1-.5-.5v-.92a.5.5 0 0 1 .5-.5h2.14v-5.28H9.86a.5.5 0 0 1-.5-.5v-.92a.5.5 0 0 1 .5-.5h2.84a.5.5 0 0 1 .5.5v6.7h2.14a.5.5 0 0 1 .5.5v.92Z"
-                  fill="#212134"
-                ></path>
-              </svg>
+              <TooltipIcon />
               <span class="tooltip-text">This plugin will require Pinecone environment to work.</span>
             </div>
 
@@ -273,19 +162,7 @@
               >Ably API Key for publish message purpose</label
             >
             <div class="tooltip-wrapper">
-              <svg
-                width="1rem"
-                height="1rem"
-                viewBox="0 0 24 24"
-                fill="#8e8ea9"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-              >
-                <path
-                  d="M12 0C5.383 0 0 5.383 0 12s5.383 12 12 12 12-5.383 12-12S18.617 0 12 0Zm0 4.92a1.56 1.56 0 1 1 0 3.12 1.56 1.56 0 0 1 0-3.12Zm3.84 13.06a.5.5 0 0 1-.5.5h-6.2a.5.5 0 0 1-.5-.5v-.92a.5.5 0 0 1 .5-.5h2.14v-5.28H9.86a.5.5 0 0 1-.5-.5v-.92a.5.5 0 0 1 .5-.5h2.84a.5.5 0 0 1 .5.5v6.7h2.14a.5.5 0 0 1 .5.5v.92Z"
-                  fill="#212134"
-                ></path>
-              </svg>
+              <TooltipIcon />
               <span class="tooltip-text">This plugin will require Ably API key to work.</span>
             </div>
 
@@ -299,41 +176,12 @@
                 @click="switchVisibility('showAblyApiKeyForPublishMessage')"
                 style="background: none; border: none; cursor: pointer"
               >
-                <template v-if="showOpenAiApiKey">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="1rem"
-                    height="1rem"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    aria-hidden="true"
-                    focusable="false"
-                  >
-                    <path d="M15.2 12a3.2 3.2 0 1 1-6.399 0 3.2 3.2 0 0 1 6.4 0Z" fill="#212134"></path>
-                    <path
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
-                      d="M18.78 6.103c1.923 1.243 3.64 2.981 4.963 5.027a1.61 1.61 0 0 1 .005 1.738c-1.318 2.063-3.031 3.807-4.954 5.046-2.12 1.364-4.475 2.086-6.81 2.086-2.388 0-4.683-.7-6.816-2.082-1.894-1.225-3.593-2.966-4.914-5.032a1.596 1.596 0 0 1 .032-1.777C1.89 8.811 3.734 7.027 5.77 5.805 7.767 4.608 9.858 4 11.984 4c2.317 0 4.667.728 6.795 2.103Zm-9.446 9.888a4.8 4.8 0 1 0 5.334-7.982 4.8 4.8 0 0 0-5.334 7.982Z"
-                      fill="#212134"
-                    ></path>
-                  </svg>
-                </template>
-                <template v-else>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="1rem"
-                    height="1rem"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    aria-hidden="true"
-                    focusable="false"
-                  >
-                    <path
-                      d="M4.048 6.875 2.103 4.93a1 1 0 1 1 1.414-1.415l16.966 16.966a1 1 0 1 1-1.414 1.415l-2.686-2.686a12.247 12.247 0 0 1-4.383.788c-3.573 0-6.559-1.425-8.962-3.783a15.842 15.842 0 0 1-2.116-2.568 11.096 11.096 0 0 1-.711-1.211 1.145 1.145 0 0 1 0-.875c.124-.258.36-.68.711-1.211.58-.876 1.283-1.75 2.116-2.569.326-.32.663-.622 1.01-.906Zm10.539 10.539-1.551-1.551a4.005 4.005 0 0 1-4.9-4.9L6.584 9.411a6 6 0 0 0 8.002 8.002ZM7.617 4.787A12.248 12.248 0 0 1 12 3.998c3.572 0 6.559 1.426 8.961 3.783a15.845 15.845 0 0 1 2.117 2.569c.351.532.587.954.711 1.211.116.242.115.636 0 .875-.124.257-.36.68-.711 1.211-.58.876-1.283 1.75-2.117 2.568-.325.32-.662.623-1.01.907l-2.536-2.537a6 6 0 0 0-8.002-8.002L7.617 4.787Zm3.347 3.347A4.005 4.005 0 0 1 16 11.998c0 .359-.047.706-.136 1.037l-4.9-4.901Z"
-                      fill="#212134"
-                    ></path>
-                  </svg>
-                </template>
+                <div v-if="showAblyApiKeyForPublishMessage">
+                  <ShowIcon />
+                </div>
+                <div v-else>
+                  <HideIcon />
+                </div>
               </button>
             </div>
             <p class="setting-list-info">Used for sending the retrieved tokens from ChatGPT to the ChatBox.</p>
@@ -344,19 +192,7 @@
               >Ably API Key for subscribe message purpose</label
             >
             <div class="tooltip-wrapper">
-              <svg
-                width="1rem"
-                height="1rem"
-                viewBox="0 0 24 24"
-                fill="#8e8ea9"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-              >
-                <path
-                  d="M12 0C5.383 0 0 5.383 0 12s5.383 12 12 12 12-5.383 12-12S18.617 0 12 0Zm0 4.92a1.56 1.56 0 1 1 0 3.12 1.56 1.56 0 0 1 0-3.12Zm3.84 13.06a.5.5 0 0 1-.5.5h-6.2a.5.5 0 0 1-.5-.5v-.92a.5.5 0 0 1 .5-.5h2.14v-5.28H9.86a.5.5 0 0 1-.5-.5v-.92a.5.5 0 0 1 .5-.5h2.84a.5.5 0 0 1 .5.5v6.7h2.14a.5.5 0 0 1 .5.5v.92Z"
-                  fill="#212134"
-                ></path>
-              </svg>
+              <TooltipIcon />
               <span class="tooltip-text">This plugin will require Ably API key to work.</span>
             </div>
 
@@ -370,41 +206,12 @@
                 @click="switchVisibility('showAblyApiKeyForSubscribeMessage')"
                 style="background: none; border: none; cursor: pointer"
               >
-                <template v-if="showOpenAiApiKey">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="1rem"
-                    height="1rem"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    aria-hidden="true"
-                    focusable="false"
-                  >
-                    <path d="M15.2 12a3.2 3.2 0 1 1-6.399 0 3.2 3.2 0 0 1 6.4 0Z" fill="#212134"></path>
-                    <path
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
-                      d="M18.78 6.103c1.923 1.243 3.64 2.981 4.963 5.027a1.61 1.61 0 0 1 .005 1.738c-1.318 2.063-3.031 3.807-4.954 5.046-2.12 1.364-4.475 2.086-6.81 2.086-2.388 0-4.683-.7-6.816-2.082-1.894-1.225-3.593-2.966-4.914-5.032a1.596 1.596 0 0 1 .032-1.777C1.89 8.811 3.734 7.027 5.77 5.805 7.767 4.608 9.858 4 11.984 4c2.317 0 4.667.728 6.795 2.103Zm-9.446 9.888a4.8 4.8 0 1 0 5.334-7.982 4.8 4.8 0 0 0-5.334 7.982Z"
-                      fill="#212134"
-                    ></path>
-                  </svg>
-                </template>
-                <template v-else>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="1rem"
-                    height="1rem"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    aria-hidden="true"
-                    focusable="false"
-                  >
-                    <path
-                      d="M4.048 6.875 2.103 4.93a1 1 0 1 1 1.414-1.415l16.966 16.966a1 1 0 1 1-1.414 1.415l-2.686-2.686a12.247 12.247 0 0 1-4.383.788c-3.573 0-6.559-1.425-8.962-3.783a15.842 15.842 0 0 1-2.116-2.568 11.096 11.096 0 0 1-.711-1.211 1.145 1.145 0 0 1 0-.875c.124-.258.36-.68.711-1.211.58-.876 1.283-1.75 2.116-2.569.326-.32.663-.622 1.01-.906Zm10.539 10.539-1.551-1.551a4.005 4.005 0 0 1-4.9-4.9L6.584 9.411a6 6 0 0 0 8.002 8.002ZM7.617 4.787A12.248 12.248 0 0 1 12 3.998c3.572 0 6.559 1.426 8.961 3.783a15.845 15.845 0 0 1 2.117 2.569c.351.532.587.954.711 1.211.116.242.115.636 0 .875-.124.257-.36.68-.711 1.211-.58.876-1.283 1.75-2.117 2.568-.325.32-.662.623-1.01.907l-2.536-2.537a6 6 0 0 0-8.002-8.002L7.617 4.787Zm3.347 3.347A4.005 4.005 0 0 1 16 11.998c0 .359-.047.706-.136 1.037l-4.9-4.901Z"
-                      fill="#212134"
-                    ></path>
-                  </svg>
-                </template>
+                <div v-if="showAblyApiKeyForSubscribeMessage">
+                  <ShowIcon />
+                </div>
+                <div v-else>
+                  <HideIcon />
+                </div>
               </button>
             </div>
 
@@ -693,7 +500,18 @@ import {
 import SupportExecutiveImage from "./public/images/executive-placeholder-small.png";
 import CompanyLogo from "./public/images/chat-icon.png";
 
+import ShowIcon from "./components/icons/showIcon.vue";
+import HideIcon from "./components/icons/hideIcon.vue";
+import TooltipIcon from "./components/icons/tooltipIcon.vue";
+import SettingIcon from "./components/icons/settingIcon.vue";
+
 export default {
+  components: {
+    ShowIcon,
+    HideIcon,
+    TooltipIcon,
+    SettingIcon,
+  },
   data() {
     return {
       activeTab: "collectionsTab",
