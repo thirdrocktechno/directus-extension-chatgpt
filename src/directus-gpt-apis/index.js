@@ -131,7 +131,7 @@ export default {
             const collectionData = await collectionService.readByQuery({
               fields: fields,
             });
-            console.log(collectionData);
+            // console.log(collectionData);
             const data = [];
             for (const dataOfCol of collectionData) {
               const text = getTextFromPredefinedTemplate(dataOfCol);
