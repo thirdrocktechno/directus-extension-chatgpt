@@ -610,9 +610,9 @@ export default {
         Ably_API_Key_for_publish_message_purpose: this.ablyApiKeyForPublishMessage.trim(),
         Ably_API_Key_for_subscribe_message_purpose: this.ablyApiKeyForSubscribeMessage.trim(),
         collection_settings: JSON.stringify(collectionSettings),
-        Frontend_Host: this.frontendHost,
-        Backend_Host: this.backendHost,
-        support_message: this.support_message,
+        Frontend_Host: this.frontendHost.trim(),
+        Backend_Host: this.backendHost.trim(),
+        support_message: this.support_message.trim(),
         chat_widget_settings: JSON.stringify(this.chatWidgetSettings),
       });
     },
