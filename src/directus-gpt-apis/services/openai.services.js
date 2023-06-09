@@ -1,6 +1,7 @@
 "use strict";
 
 import { Configuration, OpenAIApi } from "openai";
+import { OpenAIEmbeddings } from "langchain/embeddings";
 
 import { gptSettingsCollectionName } from "../../lib/constants";
 
@@ -10,7 +11,9 @@ export default class OpenAIService {
     this.configuration = null;
     this.openai = null;
     this.schema = schema;
+    this.openAIApiKey = null;
 
+    // fetch OpenAI API keys and initialize client
     this.initialize().then((result) => {});
   }
 
@@ -25,11 +28,18 @@ export default class OpenAIService {
 
       const getGptSettings = await gptSettingsService.readByQuery({});
 
+      if (!getGptSettings || !getGptSettings.length) {
+        console.log("GPT settings not found !!!!!");
+        console.log("Please update GPT settings from admin panel");
+        return false;
+      }
+
       this.configuration = new Configuration({
         apiKey: getGptSettings[0]["OpenAI_API_Key"],
       });
 
       this.openai = new OpenAIApi(this.configuration);
+      this.openAIApiKey = getGptSettings[0]["OpenAI_API_Key"];
       console.log("OpenAI client set successfully");
     } catch (error) {
       console.error(`Error initializing OpenAI client: ${error}`);
@@ -60,5 +70,16 @@ export default class OpenAIService {
       console.log("OPEN AI GET EMBEDDINGS ERR", error);
       throw new Error(error);
     }
+  }
+
+  async createEmbeddings(data) {
+    const embedder = new OpenAIEmbeddings({
+      openAIApiKey: this.openAIApiKey,
+      modelName: "text-embedding-ada-002",
+    });
+
+    const embedding = await embedder.embedQuery(data);
+
+    return embedding;
   }
 }

@@ -30,8 +30,14 @@ export default class PineconeService {
       });
 
       const getGptSettings = await gptSettingsService.readByQuery({});
-      // initialize Pinecone client with fetched settings
 
+      if (!getGptSettings || !getGptSettings.length) {
+        console.log("GPT settings not found !!!!!");
+        console.log("Please update GPT settings from admin panel");
+        return false;
+      }
+
+      // initialize Pinecone client with fetched settings
       await this.pineconeClient.init({
         apiKey: getGptSettings[0]["Pinecone_API_Key"],
         environment: getGptSettings[0]["Pinecone_Environment"],
@@ -67,29 +73,23 @@ export default class PineconeService {
   }
 
   async upsert(chunks) {
-    const vectors = [];
-    for (const i of Object.keys(chunks)) {
-      const chunkData = chunks[i][0];
-      const metadata = chunkData.metadata;
-      const vector = {
-        id: i,
-        values: chunkData.embedding,
-        metadata,
-        namespace: "directus-gpt-vectors",
-      };
-      vectors.push(vector);
-    }
-    const batches = [];
-    for (let i = 0; i < vectors.length; i += this.UPSERT_BATCH_SIZE) {
-      batches.push(vectors.slice(i, i + this.UPSERT_BATCH_SIZE));
-    }
-    for (const batch of batches) {
-      console.log(`INSERTING DATA OF BATCH ${batches.indexOf(batch) + 1}`);
-      await this.index.upsert({
-        upsertRequest: {
-          vectors: batch,
-        },
-      });
+    try {
+      const batches = [];
+      for (let i = 0; i < chunks.length; i += this.UPSERT_BATCH_SIZE) {
+        batches.push(chunks.slice(i, i + this.UPSERT_BATCH_SIZE));
+      }
+
+      for (const batch of batches) {
+        console.log(`INSERTING DATA OF BATCH ${batches.indexOf(batch) + 1}`);
+        await this.index.upsert({
+          upsertRequest: {
+            vectors: batch,
+          },
+        });
+      }
+    } catch (error) {
+      console.log("Error while upserting data in pinecone", error);
+      return false;
     }
   }
 

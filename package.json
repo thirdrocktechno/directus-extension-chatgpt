@@ -1,6 +1,7 @@
 {
-  "name": "directus-extension-directusgpt",
+  "name": "@thirdrocktechno/directus-extension-directusgpt",
   "version": "1.0.0",
+  "description": "A DirectusGPT plugin for integrating AI-powered custom ChatBot with your Directus content.",
   "dependencies": {
     "@directus/sdk": "^10.3.3",
     "@pinecone-database/pinecone": "^0.0.10",
@@ -27,15 +28,9 @@
         "type": "module",
         "name": "gpt-module",
         "source": "src/directus-gpt-module/index.js"
-      },
-      {
-        "type": "hook",
-        "name": "gpthook",
-        "source": "src/directus-gpt-hook/index.js"
       }
     ]
   },
-  "description": "A DirectusGPT plugin for integrating AI-powered custom ChatBot with your Directus content.",
   "author": {
     "name": "Third Rock Techkno LLP",
     "email": "krunals@thirdrocktechkno.com",
@@ -49,11 +44,35 @@
     }
   ],
   "icon": "extension",
+  "scripts": {
+    "build": "directus-extension build",
+    "dev": "directus-extension build -w --no-minify",
+    "link": "directus-extension link",
+    "add": "directus-extension add"
+  },
+  "devDependencies": {
+    "@directus/extensions-sdk": "9.25.2",
+    "@rollup/plugin-image": "^3.0.2",
+    "@rollup/plugin-wasm": "^6.1.2",
+    "rollup-plugin-svg": "^2.0.0",
+    "vue": "^3.2.47"
+  },
+  "type": "commonjs",
+  "homepage": "https://directusgpt.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thirdrocktechno/directus-extension-chatgpt.git"
+  },
+  "engines": {
+    "node": ">=14.19.1 <=18.x.x",
+    "npm": ">=6.0.0"
+  },
+  "license": "MIT",
   "keywords": [
     "directus",
     "directus-extension",
     "directus-custom-bundle",
-    "dircetusgpt",
+    "directusgpt",
     "directusgpt-chatbot",
     "chatbot",
     "ai",
@@ -69,20 +88,5 @@
     "directus content chatgpt",
     "ai chatbot directus",
     "langchain"
-  ],
-  "license": "MIT",
-  "scripts": {
-    "build": "directus-extension build && cp -r ./dist ../extensions/directus-extension-gpt-bundle && cp package.json ../extensions/directus-extension-gpt-bundle",
-    "dev": "directus-extension build -w --no-minify",
-    "link": "directus-extension link",
-    "add": "directus-extension add"
-  },
-  "devDependencies": {
-    "@directus/extensions-sdk": "9.25.2",
-    "@rollup/plugin-image": "^3.0.2",
-    "@rollup/plugin-wasm": "^6.1.2",
-    "rollup-plugin-svg": "^2.0.0",
-    "vue": "^3.2.47"
-  },
-  "type": "commonjs"
+  ]
 }
