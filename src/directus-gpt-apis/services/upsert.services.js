@@ -1,8 +1,13 @@
 "use strict";
 
 import GPT3Tokenizer from "gpt3-tokenizer";
+import { customAlphabet } from "nanoid";
+import { CharacterTextSplitter } from "langchain/text_splitter";
+import { Document } from "langchain/document";
 
 import OpenAIService from "./openai.services";
+const nanoid = customAlphabet("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz", 19);
+import { truncateStringByBytes, formattedText } from "../utils/utils.js";
 
 // The encoding scheme to use for tokenization
 let tokenizer = new GPT3Tokenizer({ type: "gpt3" });
@@ -205,5 +210,41 @@ export default class UpsertService {
     });
 
     return chunks;
+  }
+
+  async get_document_embeddings(allDocuments, typeOfData) {
+    const splitter = new CharacterTextSplitter({
+      separators: ["\n\n"],
+      chunkSize: 300,
+      chunkOverlap: 20,
+    });
+
+    const documents = await splitter.splitDocuments([
+      new Document({
+        pageContent: formattedText(allDocuments),
+        metadata: { text: truncateStringByBytes(formattedText(allDocuments), 36000) },
+      }),
+    ]);
+
+    const docsWithEmbeddings = [];
+    console.log(`SPLITTED ALL DOCUMENTS IN CHUNKS OF ${documents.flat().length}`);
+    for (const doc of documents.flat()) {
+      const embedding = await this.openAIService.createEmbeddings(
+        `Below is the details of ${typeOfData}\n${doc.pageContent}`,
+      );
+
+      const content_id = `${nanoid()}T${Date.now()}`;
+
+      docsWithEmbeddings.push({
+        id: content_id,
+        values: embedding,
+        metadata: {
+          text: `Below is the details of ${typeOfData}\n${doc.pageContent}`,
+        },
+      });
+    }
+    console.log("EMBEDDINGS ARE PREPARED.");
+
+    return docsWithEmbeddings;
   }
 }

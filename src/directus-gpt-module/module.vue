@@ -612,7 +612,7 @@ export default {
         collection_settings: JSON.stringify(collectionSettings),
         Frontend_Host: this.frontendHost.trim(),
         Backend_Host: this.backendHost.trim(),
-        support_message: this.support_message.trim(),
+        // support_message: this.support_message.trim(),
         chat_widget_settings: JSON.stringify(this.chatWidgetSettings),
       });
     },
